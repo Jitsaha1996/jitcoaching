@@ -7,22 +7,16 @@ export const Home = () => {
     
   return (
    <Box 
-   className=" flex md:flex-row lg:flex-row  sm:flex-col"
+   className=" flex flex-col md:flex-row bg-slate-200"
    >
-    <Box className=" w-full max-w-25   bg-transparent">
-        <Typography className=' flex text-4xl justify-center items-center'>
+    <Box className=" flex flex-col  w-full max-w-25   bg-transparent">
+        <Typography className=' flex text-4xl font-extrabold dark:text-white justify-center items-center pt-2'>
         Vission 
         </Typography>
-        <Typography className='mb-3 text-black-500 dark:text-gray-400'>
-        Track work across the enterprise through an open, collaborative platform.
-         Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have 
-        richer contextual information to rapidly respond to requests, incidents, and changes.
-        Track work across the enterprise through an open, collaborative platform.
-         Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have 
-        richer contextual information to rapidly respond to requests, incidents, and changes.
-        Track work across the enterprise through an open, collaborative platform.
-         Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have 
-        richer contextual information to rapidly respond to requests, incidents, and changes.
+        <Typography className='my-4 text-lg text-gray-500 shadow p-5 text-wrap text-justify'>
+        Computer science enables scientists to design sophisticated algorithms to analyze experimental results and model complex systems.
+         It also plays a crucial role in developing 
+        software applications that facilitate data collection, organization, and visualization.
         </Typography>
     </Box>
     <Box className=" w-full max-w-50 bg-white  bg-content   bg-no-repeat bg-center"
@@ -34,11 +28,13 @@ export const Home = () => {
   color: "#f5f5f5"}}>
     
     </Box>
-    <Box className="w-full max-w-25 bg-transparent">
-    <Typography>
-        Track work across the enterprise through an open, collaborative platform.
-         Link issues across Jira and ingest data from other software development tools, so your IT support and operations teams have 
-        richer contextual information to rapidly respond to requests, incidents, and changes.
+    <Box className=" flex flex-col  w-full max-w-25   bg-transparent">
+        <Typography className=' flex text-4xl font-extrabold dark:text-white justify-center items-center '>
+        Mission 
+        </Typography>
+        <Typography className='my-4 text-lg text-gray-500 shadow p-5 text-wrap text-justify'>
+        Every Student should be able to make his/her own unique algoritham for solving complex problems,
+        also every one should be good on build optimal logics for solving problems.
         </Typography>
     </Box>
      

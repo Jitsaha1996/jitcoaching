@@ -54,7 +54,7 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Welecome
+            Welecome to Jit's Coaching
           </Typography>
           {auth && (
             <div>
@@ -83,8 +83,10 @@ export default function MenuAppBar() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleClose}>Students Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Admission</MenuItem>
+                <MenuItem onClick={handleClose}>Contact Us</MenuItem>
+                <MenuItem onClick={handleClose}>Badges</MenuItem>
               </Menu>
             </div>
           )}
