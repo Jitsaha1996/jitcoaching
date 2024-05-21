@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import React, { useState } from 'react';
-import axios, {isCancel, AxiosError} from 'axios';
+import axios from 'axios';
 
 export const Register = () => {
     const [data,setData]=useState({name:"",

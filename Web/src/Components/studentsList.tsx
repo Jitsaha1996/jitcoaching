@@ -56,10 +56,12 @@ export default function StudentsList() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const setSelectedRow=(row:Student)=>{
         navigate(`/student/${row.id}`)
+        StudentList(studentList1);
     }
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
+        
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {

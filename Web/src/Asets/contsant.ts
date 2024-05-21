@@ -1,4 +1,3 @@
-import jit from './jit1.jpeg'
 const studentList = [{
     id:1,
     name: "a",
@@ -39,49 +38,49 @@ const studentList = [{
 }
 
 ]
-const studentData = [{
-    id:1,
-    name: "Saikat Biswas",
-    gmail: "abcd@gmail.com",
-    dob: "7/07/2008",
-    phone: 6291040877,
-    picture:"cc",
-    acchievments:[
-        {
-            class:"Eleven",
-            marks:100
-        },{
-            class:"Eleven",
-            marks:100
-        },
-        {
-            class:"Eleven",
-            marks:100
-        }
-    ]
-},
-{
-id:1,
-name: "Saikat Biswas",
-gmail: "abcd@gmail.com",
-dob: "7/07/2008",
-phone: 6291040877,
-picture:"xcc",
-acchievments:[
-    {
-        class:"Eleven",
-        marks:100
-    },{
-        class:"Eleven",
-        marks:100
-    },
-    {
-        class:"Eleven",
-        marks:100
-    }
-]
-}
+// const studentData = [{
+//     id:1,
+//     name: "Saikat Biswas",
+//     gmail: "abcd@gmail.com",
+//     dob: "7/07/2008",
+//     phone: 6291040877,
+//     picture:"cc",
+//     acchievments:[
+//         {
+//             class:"Eleven",
+//             marks:100
+//         },{
+//             class:"Eleven",
+//             marks:100
+//         },
+//         {
+//             class:"Eleven",
+//             marks:100
+//         }
+//     ]
+// },
+// {
+// id:1,
+// name: "Saikat Biswas",
+// gmail: "abcd@gmail.com",
+// dob: "7/07/2008",
+// phone: 6291040877,
+// picture:"xcc",
+// acchievments:[
+//     {
+//         class:"Eleven",
+//         marks:100
+//     },{
+//         class:"Eleven",
+//         marks:100
+//     },
+//     {
+//         class:"Eleven",
+//         marks:100
+//     }
+// ]
+// }
 
 
-]
+// ]
 export default studentList;
