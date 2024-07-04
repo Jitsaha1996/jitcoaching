@@ -34,7 +34,7 @@ const registerUsers = asynHandler(async (req, res) => {
 })
 
 const authUsers = asynHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password } = req.body;//desturctaring
 
 
   const user = await User.findOne({ email });
@@ -58,4 +58,9 @@ const authUsers = asynHandler(async (req, res) => {
 
 
 })
-module.exports = { registerUsers, authUsers };
+const getUserList = asynHandler(async (req, res) => {
+ 
+  const userList = await User.find();
+  res.json(userList);
+})
+module.exports = { registerUsers, authUsers,getUserList };

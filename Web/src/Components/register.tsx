@@ -1,8 +1,9 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, TextField, Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import React, { useState } from 'react';
 import axios from 'axios';
+import CheckIcon from '@mui/icons-material/Check';
 
 export const Register = () => {
     const [data,setData]=useState({name:"",
@@ -10,6 +11,9 @@ export const Register = () => {
     password:""
 
     });
+
+    const [isError,setIsError]=useState(false);
+    const [error,setError]=useState(" ");
     const handleSubmit = (e:any) => {
         e.preventDefault();
         if (e.target.checkValidity()) {
@@ -21,10 +25,14 @@ export const Register = () => {
               })
               .catch(function (error) {
                 console.log(error);
+                setIsError(true);
+                setError(error?.message);
               });
           
         } else {
-          alert("Form is invalid! Please check the fields...");
+          setIsError(true);
+                setError("Form is invalid! Please check the fields...");
+          // alert("Form is invalid! Please check the fields...");
         }
       };
   return (
@@ -34,6 +42,11 @@ export const Register = () => {
 
     <Box className="flex flex-col pt-3" sx={{ bgcolor: '#cfe8fc', height: '100vh' }}  component="form" onSubmit={handleSubmit} noValidate>
         <Box>
+          {isError? <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
+           {error}
+    </Alert>:null}
+        
+      
         <Typography className='flex text-4xl font-extrabold dark:text-white justify-center items-center pt-2 '>
                 Register
             </Typography>
