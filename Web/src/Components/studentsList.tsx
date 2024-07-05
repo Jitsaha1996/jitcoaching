@@ -11,11 +11,11 @@ import studentList1 from '../Asets/contsant';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from 'react';
-import { alpha, AppBar, Box, IconButton, InputBase, styled, Toolbar, Typography } from '@mui/material';
+import { alpha, AppBar, Box, IconButton, InputBase, styled, TextField, Toolbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 interface Column {
-    id: 'name' | '_id' | 'phone' | 'email'|'dob';
+    id: 'name' | '_id' | 'phone' | 'email' | 'dob';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -26,10 +26,10 @@ const columns: readonly Column[] = [
     { id: '_id', label: 'ID', minWidth: 170 },
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
-    
-   
-    
-  ];
+
+
+
+];
 
 
 interface Student {
@@ -38,7 +38,7 @@ interface Student {
     email: string;
     phone?: number;
     dob?: string;
-    isAdmin?:boolean
+    isAdmin?: boolean
 }
 
 
@@ -46,39 +46,41 @@ export default function StudentsList() {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [studentList,StudentList]=React.useState<any[]>([]);
-    
-    const setSelectedRow=(row:Student)=>{
+    const [studentList, setStudentList] = React.useState<any[]>([]);
+    const [searched,setSearched]=useState("");
+    const [copyList, setCopyList] = useState<any[]>([]);
+
+    const setSelectedRow = (row: Student) => {
         navigate(`/student/${row._id}`)
-        StudentList(studentList);
+        setStudentList(studentList);
     }
-    React.useEffect(()=>{
+    React.useEffect(() => {
         getStudentList();
-    },[])
+    }, [])
     const getStudentList = () => {
-       
-        
-            axios.get('http://localhost:5000/api/users/'
 
-            )
-                .then(function (response: any) {
-                    console.log("response", response);
-                    StudentList(response?.data)
-                    
-                })
-                .catch(function (error) {
-                    console.log(error);
-                    
-                });
 
-        }  
-    
+        axios.get('http://localhost:5000/api/users/'
 
-    
+        )
+            .then(function (response: any) {
+                console.log("response", response);
+                setStudentList(response?.data)
+
+            })
+            .catch(function (error) {
+                console.log(error);
+
+            });
+
+    }
+
+
+
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
-        
+
     };
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,17 +92,17 @@ export default function StudentsList() {
         borderRadius: theme.shape.borderRadius,
         backgroundColor: alpha(theme.palette.common.white, 0.15),
         '&:hover': {
-          backgroundColor: alpha(theme.palette.common.white, 0.25),
+            backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
         marginLeft: 0,
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(1),
-          width: 'auto',
+            marginLeft: theme.spacing(1),
+            width: 'auto',
         },
-      }));
-      
-      const SearchIconWrapper = styled('div')(({ theme }) => ({
+    }));
+
+    const SearchIconWrapper = styled('div')(({ theme }) => ({
         padding: theme.spacing(0, 2),
         height: '100%',
         position: 'absolute',
@@ -108,109 +110,101 @@ export default function StudentsList() {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }));
-      
-      const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    }));
+    const requestSearch = (val: any) => {
+        const filterData=studentList.filter((item) => item.name.toLowerCase().includes(val.toLowerCase()) || item.email.toLowerCase().includes(val.toLowerCase()));
+        setCopyList(filterData);
+
+    }
+
+    const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: 'inherit',
         width: '100%',
         '& .MuiInputBase-input': {
-          padding: theme.spacing(1, 1, 1, 0),
-          // vertical padding + font size from searchIcon
-          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-          transition: theme.transitions.create('width'),
-          [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-              width: '20ch',
+            padding: theme.spacing(1, 1, 1, 0),
+            // vertical padding + font size from searchIcon
+            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+            transition: theme.transitions.create('width'),
+            [theme.breakpoints.up('sm')]: {
+                width: '12ch',
+                '&:focus': {
+                    width: '20ch',
+                },
             },
-          },
         },
-      }));
+    }));
     return (
-        <Box className="py-5 bg-cyan-500 hover:bg-red-600">
-            <Box  sx={{ flexGrow: 1 }} >
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            {/* <MenuIcon/> */}
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Here To Search....
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
-   
-        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
+        <>
+            <Box className="flex flex-col py-5">
+                <Box sx={{ flexGrow: 1 }} >
 
-                <Table stickyHeader aria-label="sticky table">
-                
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {studentList
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={() => setSelectedRow(row)}>
-                                        {columns.map((column) => {
-                                            const value = row[column.id];
+
+                <TextField
+            variant='standard'
+            placeholder='search...'
+            type='search'
+            onChange={(e) => requestSearch(e.target.value)}
+            className='w-full'
+          />
+
+                </Box>
+                <Box className="py-5 bg-cyan-500 hover:bg-red-600">
+
+
+                    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+                        <TableContainer sx={{ maxHeight: 440 }}>
+
+                            <Table stickyHeader aria-label="sticky table">
+
+                                <TableHead>
+                                    <TableRow>
+                                        {columns.map((column) => (
+                                            <TableCell
+                                                key={column.id}
+                                                align={column.align}
+                                                style={{ minWidth: column.minWidth }}
+                                            >
+                                                {column.label}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {(copyList.length?copyList: studentList)
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((row) => {
                                             return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
-                                                </TableCell>
+                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={() => setSelectedRow(row)}>
+                                                    {columns.map((column) => {
+                                                        const value = row[column.id];
+                                                        return (
+                                                            <TableCell key={column.id} align={column.align}>
+                                                                {column.format && typeof value === 'number'
+                                                                    ? column.format(value)
+                                                                    : value}
+                                                            </TableCell>
+                                                        );
+                                                    })}
+                                                </TableRow>
                                             );
                                         })}
-                                    </TableRow>
-                                );
-                            })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[5,10, 25, 100]}
-                component="div"
-                count={studentList.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </Paper>
-        </Box>
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25, 100]}
+                            component="div"
+                            count={studentList.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </Paper>
+                </Box>
+            </Box>
+
+        </>
+
     );
 }
