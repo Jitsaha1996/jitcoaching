@@ -7,6 +7,8 @@ import MenuAppBar from './Components/headerbar';
 import StudentsList from './Components/studentsList';
 import { Student } from './Components/student';
 import { Register } from './Components/register';
+import { Login } from './Components/login';
+import { MyProfile } from './Components/profile';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
     <Routes>
     <Route path="/register" element={<Register />}/>
       <Route path="/" element={<Home />}/>
+      <Route path="/login" element={<Login />}/>
+      <Route path="/profile" element={<MyProfile />}/>
       <Route path="/studentlist" element={<StudentsList/>}/>
       <Route path="/student/:id" element={<Student/>}/>
       
