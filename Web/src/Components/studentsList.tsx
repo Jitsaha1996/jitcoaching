@@ -9,9 +9,11 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import studentList1 from '../Asets/contsant';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useState } from 'react';
 
 interface Column {
-    id: 'name' | 'id' | 'phone' | 'gmail'|'dob';
+    id: 'name' | '_id' | 'phone' | 'email'|'dob';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -19,45 +21,58 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'id', label: 'ID', minWidth: 170 },
+    { id: '_id', label: 'ID', minWidth: 170 },
     { id: 'name', label: 'Name', minWidth: 170 },
-    {
-      id: 'phone',
-      label: 'Phone',
-      minWidth: 100,
-      align: 'right',
-      format: (value: number) => value.toLocaleString('en-US'),
-    },
-    {
-      id: 'dob',
-      label: 'Dob',
-      minWidth: 170,
-      align: 'right',
-      format: (value: number) => value.toLocaleString('en-US'),
-    }
+    { id: 'email', label: 'Email', minWidth: 170 },
+    
    
     
   ];
 
 
 interface Student {
-    id: number;
+    _id: number;
     name: string;
-    gmail: string;
-    phone: number;
-    dob: string;
+    email: string;
+    phone?: number;
+    dob?: string;
+    isAdmin?:boolean
 }
 
 
 export default function StudentsList() {
     const navigate = useNavigate();
-    const [studentList,StudentList]=React.useState<Student[]>(studentList1);
-    const [page, setPage] = React.useState(0);
+    const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [studentList,StudentList]=React.useState<any[]>([]);
+    
     const setSelectedRow=(row:Student)=>{
-        navigate(`/student/${row.id}`)
-        StudentList(studentList1);
+        navigate(`/student/${row._id}`)
+        StudentList(studentList);
     }
+    React.useEffect(()=>{
+        getStudentList();
+    },[])
+    const getStudentList = () => {
+       
+        
+            axios.get('http://localhost:5000/api/users/'
+
+            )
+                .then(function (response: any) {
+                    console.log("response", response);
+                    StudentList(response?.data)
+                    
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    
+                });
+
+        }  
+    
+
+    
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
