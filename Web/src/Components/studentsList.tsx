@@ -11,6 +11,7 @@ import studentList1 from '../Asets/contsant';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from 'react';
+import { Box } from '@mui/material';
 
 interface Column {
     id: 'name' | '_id' | 'phone' | 'email'|'dob';
@@ -43,7 +44,7 @@ interface Student {
 export default function StudentsList() {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [studentList,StudentList]=React.useState<any[]>([]);
     
     const setSelectedRow=(row:Student)=>{
@@ -85,6 +86,7 @@ export default function StudentsList() {
     };
 
     return (
+        <Box className="py-5 bg-cyan-500 hover:bg-red-600">
         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
             <TableContainer sx={{ maxHeight: 440 }}>
                 <Table stickyHeader aria-label="sticky table">
@@ -124,7 +126,7 @@ export default function StudentsList() {
                 </Table>
             </TableContainer>
             <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
+                rowsPerPageOptions={[5,10, 25, 100]}
                 component="div"
                 count={studentList.length}
                 rowsPerPage={rowsPerPage}
@@ -133,5 +135,6 @@ export default function StudentsList() {
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
+        </Box>
     );
 }
