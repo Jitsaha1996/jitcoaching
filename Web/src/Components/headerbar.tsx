@@ -12,7 +12,7 @@ import FormGroup from '@mui/material/FormGroup';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
-
+import LogoDevIcon from '@mui/icons-material/LogoDev';
 export default function MenuAppBar() {
   const navigate = useNavigate();
   const [auth, setAuth] = React.useState(true);
@@ -58,7 +58,8 @@ export default function MenuAppBar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            {/* <MenuIcon /> */}
+            <LogoDevIcon/>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Welecome to Jit's Coaching
