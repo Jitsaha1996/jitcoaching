@@ -4,14 +4,14 @@ const jwtToken = require('../utils/generateTokes');
 
 
 const registerUsers = asynHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, pic,dob,phone } = req.body;
   const userExist = await User.findOne({ email })
   if (userExist) {
     res.status(400);
     throw new Error("User Already Exist");
   }
   const user = await User.create({
-    name, email, password, pic
+    name, email, password, pic,dob,phone
   })
   if (user) {
     res.status(201).json({
@@ -20,6 +20,8 @@ const registerUsers = asynHandler(async (req, res) => {
       pic: user.pic,
       email: user.email,
       isAdmin: user.isAdmin,
+      phone:user.phone,
+      dob:user.dob,
       token: jwtToken(user._id)
     })
   } else {
@@ -30,6 +32,38 @@ const registerUsers = asynHandler(async (req, res) => {
   res.json({
     name, email
   })
+
+})
+const editUsers = asynHandler(async (req, res) => {
+  const { name, pic,dob,phone ,email} = req.body;
+  const userExist = await User.findOne({ email })
+  const filter={email:userExist.email};
+  console.log("Filter1",userExist);
+  // if (userExist) {
+  //   res.status(400);
+  //   throw new Error("User Already Exist");
+  // }
+  const updateDocument = {
+    $set: {
+      name:name,
+    pic:pic,
+    dob:dob,
+    phone:phone
+    },
+ };
+  const user = await User.updateOne(filter,updateDocument);
+  console.log("User",user);
+  if (user) {
+    res.status(200).json({
+      message:`${email} updated sucessfully!!`,
+      status:"sucess",
+      statuscode:200
+    })
+  } else {
+    res.status(400);
+    throw new Error("Error Occured");
+  }
+
 
 })
 
@@ -63,4 +97,4 @@ const getUserList = asynHandler(async (req, res) => {
   const userList = await User.find();
   res.json(userList);
 })
-module.exports = { registerUsers, authUsers,getUserList };
+module.exports = { registerUsers, authUsers,getUserList,editUsers };
