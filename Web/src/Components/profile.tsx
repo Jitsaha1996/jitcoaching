@@ -9,8 +9,8 @@ export const MyProfile = () => {
   return (
     <Box className="flex flex-col  w-full max-w-25 justify-center items-center  bg-transparent">
         <Box className=' flex justify-center items-center pt-2' >
-        <Typography className="flex text-4xl font-extrabold  ">
-          Hi   {myProfile.name},Welcome to Jit Coachine Center 
+        <Typography className="flex text-4xl font-extrabold dark:text-white ">
+          Hi   {myProfile.name},Welcome to Jit Coachine Center .
         </Typography>
         </Box>
         <Box className='flex justify-start items-start pt-2 w-full'>
