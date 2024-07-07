@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import React, { useState } from 'react';
 import axios from 'axios';
 import CheckIcon from '@mui/icons-material/Check';
+import { Navigate } from 'react-router-dom';
 
 export const Register = () => {
     const [data,setData]=useState({name:"",
@@ -22,11 +23,13 @@ export const Register = () => {
               )
               .then(function (response:any) {
                 console.log("response",response);
+               
               })
               .catch(function (error) {
                 console.log(error);
                 setIsError(true);
                 setError(error?.message);
+               
               });
           
         } else {

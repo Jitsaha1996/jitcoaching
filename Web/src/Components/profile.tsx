@@ -8,8 +8,8 @@ export const MyProfile = () => {
     console.log(state);
   return (
     <Box className="flex flex-col  w-full max-w-25 justify-center items-center  bg-transparent">
-        <Box className=' flex justify-center items-center pt-2' >
-        <Typography className="flex text-4xl font-extrabold dark:text-white ">
+        <Box className=' flex justify-center items-left pt-2' >
+        <Typography className="flex text-4xl font-extrabold ">
           Hi   {myProfile.name},Welcome to Jit Coachine Center .
         </Typography>
         </Box>
