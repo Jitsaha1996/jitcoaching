@@ -13,9 +13,10 @@ import axios from 'axios';
 import { useState } from 'react';
 import { alpha, AppBar, Box, IconButton, InputBase, styled, TextField, Toolbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 
 interface Column {
-    id: 'name' | '_id' | 'phone' | 'email' | 'dob';
+    id: 'name' | '_id' | 'phone' | 'email' | 'dob' | 'action';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -26,6 +27,9 @@ const columns: readonly Column[] = [
     { id: '_id', label: 'ID', minWidth: 170 },
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
+    { id: 'phone', label: 'Phone', minWidth: 170 },
+    { id: 'dob', label: 'DOB', minWidth: 170 },
+    { id: 'action', label: 'Action', minWidth: 170 },
 
 
 
@@ -47,7 +51,7 @@ export default function StudentsList() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [studentList, setStudentList] = React.useState<any[]>([]);
-    const [searched,setSearched]=useState("");
+    const [searched, setSearched] = useState("");
     const [copyList, setCopyList] = useState<any[]>([]);
 
     const setSelectedRow = (row: Student) => {
@@ -112,7 +116,7 @@ export default function StudentsList() {
         justifyContent: 'center',
     }));
     const requestSearch = (val: any) => {
-        const filterData=studentList.filter((item) => item.name.toLowerCase().includes(val.toLowerCase()) || item.email.toLowerCase().includes(val.toLowerCase()));
+        const filterData = studentList.filter((item) => item.name.toLowerCase().includes(val.toLowerCase()) || item.email.toLowerCase().includes(val.toLowerCase()));
         setCopyList(filterData);
 
     }
@@ -139,16 +143,16 @@ export default function StudentsList() {
                 <Box sx={{ flexGrow: 1 }} >
 
 
-                <TextField
-            variant='standard'
-            placeholder='search...'
-            type='search'
-            onChange={(e) => requestSearch(e.target.value)}
-            className='w-full'
-          />
+                    <TextField
+                        variant='standard'
+                        placeholder='search...'
+                        type='search'
+                        onChange={(e) => requestSearch(e.target.value)}
+                        className='w-full'
+                    />
 
                 </Box>
-                <Box className="py-5 bg-cyan-500 hover:bg-red-600">
+                <Box className="py-5 bg-cyan-500 hover:bg-white">
 
 
                     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -170,19 +174,30 @@ export default function StudentsList() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {(copyList.length?copyList: studentList)
+                                    {(copyList.length ? copyList : studentList)
                                         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                         .map((row) => {
                                             return (
-                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id} onClick={() => setSelectedRow(row)}>
+                                                <TableRow hover role="checkbox" tabIndex={-1} key={row.id} >
                                                     {columns.map((column) => {
                                                         const value = row[column.id];
                                                         return (
-                                                            <TableCell key={column.id} align={column.align}>
-                                                                {column.format && typeof value === 'number'
-                                                                    ? column.format(value)
-                                                                    : value}
-                                                            </TableCell>
+                                                            <>
+                                                               
+                                                                {column.id === "action"?
+                                                                    <TableCell key={column.id} align={column.align}>
+                                                                        <ArrowRightAltIcon onClick={() => setSelectedRow(row)} /> 
+                                                                    </TableCell>
+                                                                    : <TableCell key={column.id} align={column.align}>
+                                                                    {column.format && typeof value === 'number'
+                                                                        ? column.format(value)
+                                                                        : value}
+                                                                </TableCell>
+                                                                }
+
+
+                                                            </>
+
                                                         );
                                                     })}
                                                 </TableRow>
