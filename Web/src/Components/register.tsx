@@ -9,8 +9,9 @@ import { Navigate } from 'react-router-dom';
 export const Register = () => {
     const [data,setData]=useState({name:"",
     email:"",
-    password:""
-
+    password:"",
+     phone:"",
+     dob:""
     });
 
     const [isError,setIsError]=useState(false);
@@ -71,6 +72,18 @@ export const Register = () => {
                 Password
             </Typography>
         <TextField id="password"className='pl-3 w-1/2'  variant="standard" required type='password' onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setData({...data,password:e.target.value})} />
+        </Box>
+        <Box className="flex w-full flex-col justify-center items-center ">
+            <Typography className='pr-3 w-1/2 pt-3 '>
+               Phone
+            </Typography>
+        <TextField id="phone"className='pl-3 w-1/2'  variant="standard" required type='number' onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setData({...data,phone:e.target.value})} />
+        </Box>
+        <Box className="flex w-full flex-col justify-center items-center ">
+            <Typography className='pr-3 w-1/2 pt-3 '>
+               D.O.B.
+            </Typography>
+        <TextField id="dob"className='pl-3 w-1/2'  variant="standard" required type='date' onChange={(e:React.ChangeEvent<HTMLInputElement>)=>setData({...data,dob:e.target.value})} />
         </Box>
         <Box className=" flex justify-center items-center pt-5">
         <Button variant="outlined" sx={{marginRight:"20px"}} color="primary" type="submit" >
