@@ -13,7 +13,11 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
 import LogoDevIcon from '@mui/icons-material/LogoDev';
+import UserContext from '../Auth/userContext';
+import { Avatar } from '@mui/material';
 export default function MenuAppBar() {
+  const { user } = React.useContext<any>(UserContext);
+  console.log("User",user);
   const navigate = useNavigate();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -62,7 +66,7 @@ export default function MenuAppBar() {
             <LogoDevIcon/>
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Welecome to Jit's Coaching
+           {user?.name} Welecome to Jit's Coaching
           </Typography>
           {auth && (
             <div>
@@ -73,8 +77,9 @@ export default function MenuAppBar() {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
-              >
-                <AccountCircle />
+              >{user?.pic?<Avatar alt="Remy Sharp" src={user?.pic} />:<AccountCircle  />}
+                
+                
               </IconButton>
               <Menu
                 id="menu-appbar"

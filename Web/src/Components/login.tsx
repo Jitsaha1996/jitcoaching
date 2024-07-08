@@ -1,12 +1,16 @@
 import { Alert, Box, Button, TextField, Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../Auth/userContext';
+
+
 
 export const Login = () => {
+    const { login } = useContext<any>(UserContext);
     const navigate = useNavigate();
     const [response,setResponse]=useState({});
     const [data, setData] = useState({
@@ -27,9 +31,8 @@ export const Login = () => {
                 .then(function (response: any) {
                     console.log("response", response);
                     setData({...data,status:"Sucess"});
-                    navigate('/profile',{
-                        state:response?.data
-                    })
+                    login(response.data);
+                    navigate('/profile')
                 })
                 .catch(function (error) {
                     console.log(error);

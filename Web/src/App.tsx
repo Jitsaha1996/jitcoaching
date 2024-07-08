@@ -9,12 +9,25 @@ import { Student } from './Components/student';
 import { Register } from './Components/register';
 import { Login } from './Components/login';
 import { MyProfile } from './Components/profile';
+import { createContext, useState } from 'react';
+import UserContext from './Auth/userContext';
+
 
 function App() {
+  
+  const [user, setUser] = useState(null);
+  const login = (userData:any) => {
+    setUser(userData);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
   return (
     <Box>
       {/* <MenuAppBar/> */}
 <BrowserRouter>
+<UserContext.Provider value={{ user, login, logout }}>
 <MenuAppBar/>
     
     <Routes>
@@ -29,6 +42,7 @@ function App() {
         <Route path="table" element={<TableDemo/>} /> */}
       
     </Routes>
+    </UserContext.Provider>
   </BrowserRouter>
     </Box>
     

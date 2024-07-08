@@ -1,14 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import UserContext from '../Auth/userContext';
 
 export const MyProfile = () => {
-    const { state } = useLocation();
-    const [myProfile,setMyProfile]=useState(state);
-    console.log(state);
+    const { user } = React.useContext<any>(UserContext);
+    const [myProfile,setMyProfile]=useState(user);
+    
   return (
     <Box className="flex flex-col  w-full max-w-25 justify-center items-center  bg-transparent">
-        
+
         <Box className='flex justify-start items-start pt-2 w-full'>
           <Box className='w-1/3'>
           <img src={myProfile?.pic} alt='test'/>
