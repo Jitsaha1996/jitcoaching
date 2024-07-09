@@ -76,6 +76,7 @@ export const MyProfile = () => {
         <Box className='w-2/3 bg-slate-200 ml-5 pl-5'>
           <Typography className="text-4xl font-light  ">
             Hi   {myProfile?.name},Welcome to Jit Coachine Center
+            </Typography>
 
         <Box className= 'flex flex-col w-full '>
           <Box className= 'flex justify-center items-center text-3xl font-extrabold py-2 bg-slate-500 '>
