@@ -29,6 +29,7 @@ export default function MenuAppBar() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
+   
   };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,11 +38,12 @@ export default function MenuAppBar() {
 
   const handleClose = () => {
     setAnchorEl(null);
+  
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <FormGroup>
+      {/* <FormGroup>
         <FormControlLabel
           control={
             <Switch
@@ -52,7 +54,7 @@ export default function MenuAppBar() {
           }
           label={auth ? 'Logout' : 'Login'}
         />
-      </FormGroup>
+      </FormGroup> */}
       <AppBar position="static">
         <Toolbar>
           <IconButton

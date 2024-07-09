@@ -1,15 +1,38 @@
-import { Box, Typography } from '@mui/material';
+import { Box, FormControlLabel, FormGroup, Switch, Typography } from '@mui/material';
 import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import UserContext from '../Auth/userContext';
 
+
 export const MyProfile = () => {
+  
     const { user } = React.useContext<any>(UserContext);
     const [myProfile,setMyProfile]=useState(user);
-    
+    const [auth, setAuth] = React.useState(true);
+    const navigate = useNavigate();
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setAuth(event.target.checked);
+     navigate('/login')
+     alert("do you want to log out?");
+     
+    };
   return (
     <Box className="flex flex-col  w-full max-w-25 justify-center items-center  bg-transparent">
-
+      <Box className="flex justify-start items-start pt-2 w-full">
+       <FormGroup>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={auth}
+              onChange={handleChange}
+              aria-label="login switch"
+            />
+          }
+          label={auth ? 'Logout' : 'Login'}
+        />
+      </FormGroup>
+      </Box>
         <Box className='flex justify-start items-start pt-2 w-full'>
           <Box className='w-1/3'>
           <img src={myProfile?.pic} alt='test'/>
@@ -55,3 +78,7 @@ export const MyProfile = () => {
     </Box>
   )
 }
+function setAuth(checked: boolean) {
+  throw new Error('Function not implemented.');
+}
+
