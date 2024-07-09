@@ -51,11 +51,11 @@ export default function StudentsList() {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [studentList, setStudentList] = React.useState<any[]>([]);
-    const [searched, setSearched] = useState("");
     const [copyList, setCopyList] = useState<any[]>([]);
 
     const setSelectedRow = (row: Student) => {
-        navigate(`/student/${row._id}`)
+        localStorage.setItem("User",JSON.stringify(row));
+        navigate('/profile')
         setStudentList(studentList);
     }
     React.useEffect(() => {
@@ -91,32 +91,10 @@ export default function StudentsList() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-    }));
 
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
     const requestSearch = (val: any) => {
-        const filterData = studentList.filter((item) => item.name.toLowerCase().includes(val.toLowerCase()) || item.email.toLowerCase().includes(val.toLowerCase()));
+        const filterData = studentList.filter((item) => item?.name?.toLowerCase()?.includes(val?.toLowerCase())
+         || item?.email?.toLowerCase()?.includes(val?.toLowerCase()));
         setCopyList(filterData);
 
     }
@@ -183,16 +161,16 @@ export default function StudentsList() {
                                                         const value = row[column.id];
                                                         return (
                                                             <>
-                                                               
-                                                                {column.id === "action"?
+
+                                                                {column.id === "action" ?
                                                                     <TableCell key={column.id} align={column.align}>
-                                                                        <ArrowRightAltIcon onClick={() => setSelectedRow(row)} /> 
+                                                                        <ArrowRightAltIcon onClick={() => setSelectedRow(row)} />
                                                                     </TableCell>
                                                                     : <TableCell key={column.id} align={column.align}>
-                                                                    {column.format && typeof value === 'number'
-                                                                        ? column.format(value)
-                                                                        : value}
-                                                                </TableCell>
+                                                                        {column.format && typeof value === 'number'
+                                                                            ? column.format(value)
+                                                                            : value}
+                                                                    </TableCell>
                                                                 }
 
 

@@ -32,6 +32,7 @@ export const Login = () => {
                     console.log("response", response);
                     setData({...data,status:"Sucess"});
                     login(response.data);
+                    localStorage.setItem("User",JSON.stringify(response.data));
                     navigate('/profile')
                 })
                 .catch(function (error) {
