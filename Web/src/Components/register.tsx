@@ -113,7 +113,7 @@ export const Register = () => {
             <TextField id="email" className='pl-3 w-1/2' variant="standard" required type='email' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })} />
           </Box>
           <Box className="flex w-full flex-col justify-center items-center ">
-            <Typography className='pr-3 w-1/2 pt-3 '>
+            <Typography className='pr-3 w-1/2 pt-3 type={showPassword?"text":"password"} '>
               Password
             </Typography>
             <TextField id="password" className='pl-3 w-1/2' variant="standard" required type='password' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, password: e.target.value })} />

@@ -1,16 +1,16 @@
-import { Alert, Box, Button, TextField, Typography } from '@mui/material'
+import { Alert, Box, Button, FormControlLabel, FormGroup, Switch, TextField, Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
-import React, { useContext, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import axios from 'axios';
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../Auth/userContext';
 
 
-
 export const Login = () => {
     const { login } = useContext<any>(UserContext);
+    
     const navigate = useNavigate();
     const [response,setResponse]=useState({});
     const [data, setData] = useState({
@@ -39,6 +39,7 @@ export const Login = () => {
                     setData({...data,status:"Error"});
                     setIsError(true);
                     setError(error?.message);
+                    
                 });
 
         } else {
@@ -47,11 +48,13 @@ export const Login = () => {
             // alert("Form is invalid! Please check the fields...");
         }
     };
+    
+
     return (
         <>
             <CssBaseline />
             <Container maxWidth="sm">
-
+           
                 <Box className="flex flex-col pt-3" sx={{ bgcolor: '#cfe8fc', height: '100vh' }} component="form" onSubmit={handleSubmit} noValidate>
                     <Box>
                         {data?.status==="Error" ? <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
@@ -81,6 +84,7 @@ export const Login = () => {
                     <Box className=" flex justify-center items-center pt-5">
                         <Button variant="outlined" sx={{ marginRight: "20px" }} color="primary" type="submit" >
                             Cancel
+                            
                         </Button>
                         <Button variant="contained" color="primary" type="submit" >
                             Submit
@@ -98,3 +102,7 @@ export const Login = () => {
 
     )
 }
+function setAuth(checked: boolean) {
+    throw new Error('Function not implemented.');
+}
+
