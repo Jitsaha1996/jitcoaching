@@ -38,39 +38,42 @@ export const MyProfile = () => {
           <img src={myProfile?.pic} alt='test'/>
           </Box>
             <Box className='w-2/3 bg-slate-200 ml-5 pl-5'>
-            <Typography className="text-4xl font-light  ">
-                 Hi   {myProfile.name},Welcome to Jit Coachine Center 
+            <Typography className="text-4xl from-neutral-900  ">
+                 Hi   {myProfile.name},Welcome to Jit Coachine Center
+                 <br/>
+
+                 <table className= 'flex flex-col justify-center place-content-center py-2 mr-5 pr-5 border  border-black  w-full '>
+                  <thead>
+                  <h1 className= ' flex font-extrabold ml-5'> YOUR DETAILS-- </h1>
+                  <div className="divide-y-2 divide-slate-900 bg-orange-200 shadow-inner shadow-black p-8">
+                    <div className="py-1 text-2xl ">Name= {myProfile.name} </div>
+                    <div className="py-1 text-2xl">Email id= {myProfile.email} </div>
+                    <div className="py-1 text-2xl">Phone no.= {myProfile.phone} </div>
+                    <div className="py-1 text-2xl">D.O.B.= {myProfile.dob}  </div>
+                  </div>
+                  </thead>
+                  </table> 
          
             </Typography>
             </Box>
         </Box>
 
         <Box className= 'flex flex-col w-full '>
-          <Box className= 'flex justify-center items-center text-5xl py-0 bg-slate-500 '>
-          <Typography >
+          <Box className= 'flex justify-center items-center text-3xl font-extrabold py-2 bg-slate-500 '>
+          <Typography  >
             Achievements
           </Typography>
           </Box>
           
-          <table className="flex flex-col justify-center place-content-center py-3 border border-separate  border-slate-600 border-spacing-5 w-full">
+          <table className="flex flex-col justify-evenly place-content-evenly py-3 border border-separate  border-slate-600 border-spacing-5 w-full">
             <thead>
-              <tr className='flex justify-center  ' > 
-                <th className= "border  border-slate-600 ...">Standard </th>
-                <th className= "border  border-slate-600 ...">Marks</th>
-              </tr>
+            <div className="divide-y-2 divide-slate-900 bg-slate-200 p-16">
+                    <div className="py-1 text-xl "> Grade in 10th= </div>
+                    <div className="py-1 text-xl"> Grade in 12th= </div>
+                    <div className="py-1 text-xl"> others.. </div>
+                    
+                  </div>
             </thead>
-
-            <tbody>
-               <tr className='flex justify-center '>
-                <td className= "border  border-slate-600 ...">10th=</td>
-                <td className= "border  border-slate-600 ...">87.5%</td>
-              </tr>
-              <tr className='flex justify-center '>
-                <td className= "border  border-slate-600 ...">12th=</td>
-                <td className= "border  border-slate-600 ...">78.5%</td>
-              </tr>
-              
-            </tbody>
           </table>
           
 
