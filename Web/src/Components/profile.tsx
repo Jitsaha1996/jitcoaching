@@ -55,17 +55,17 @@ export const MyProfile = () => {
           </Box>
             <Box className='w-2/3 bg-slate-200 ml-5 pl-5'>
             <Typography className="text-4xl from-neutral-900  ">
-                 Hi   {myProfile.name},Welcome to Jit Coachine Center
+                 Hi   {myProfile?.name},Welcome to Jit Coachine Center
                  <br/>
 
                  <table className= 'flex flex-col justify-center place-content-center py-2 mr-5 pr-5 border  border-black  w-full '>
                   <thead>
                   <h1 className= ' flex font-extrabold ml-5'> YOUR DETAILS-- </h1>
                   <div className="divide-y-2 divide-slate-900 bg-orange-200 shadow-inner shadow-black p-8">
-                    <div className="py-1 text-2xl ">Name= {myProfile.name} </div>
-                    <div className="py-1 text-2xl">Email id= {myProfile.email} </div>
-                    <div className="py-1 text-2xl">Phone no.= {myProfile.phone} </div>
-                    <div className="py-1 text-2xl">D.O.B.= {myProfile.dob}  </div>
+                    <div className="py-1 text-2xl ">Name= {myProfile?.name} </div>
+                    <div className="py-1 text-2xl">Email id= {myProfile?.email} </div>
+                    <div className="py-1 text-2xl">Phone no.= {myProfile?.phone} </div>
+                    <div className="py-1 text-2xl">D.O.B.= {myProfile?.dob}  </div>
                   </div>
                   </thead>
                   </table> 
