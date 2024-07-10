@@ -37,6 +37,16 @@ const userSchema = mongoose.Schema(
       default:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
+    isArchived:{
+      type:Boolean,
+      required:true,
+      default:false
+    },
+    achievments:{
+      type:Array,
+      required:true,
+      default:[]
+    }
   },
   {
     timestamps: true,
