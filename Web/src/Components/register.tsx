@@ -18,7 +18,9 @@ export const Register = () => {
     phone: "",
     dob: "",
     pic: "",
-    status: ""
+    status: "",
+    isArchived:false,
+    achivment:[]
   });
 
   const [isError, setIsError] = useState(false);
