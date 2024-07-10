@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { alpha, AppBar, Box, IconButton, InputBase, styled, TextField, Toolbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import { LongMenu } from './menu';
 
 interface Column {
     id: 'name' | '_id' | 'phone' | 'email' | 'dob' | 'action';
@@ -29,7 +30,7 @@ const columns: readonly Column[] = [
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'phone', label: 'Phone', minWidth: 170 },
     { id: 'dob', label: 'DOB', minWidth: 170 },
-    { id: 'action', label: 'Action', minWidth: 170 },
+    { id: 'action', label: 'Action', minWidth: 170 }
 
 
 
@@ -164,7 +165,8 @@ export default function StudentsList() {
 
                                                                 {column.id === "action" ?
                                                                     <TableCell key={column.id} align={column.align}>
-                                                                        <ArrowRightAltIcon onClick={() => setSelectedRow(row)} />
+                                                                        {/* <ArrowRightAltIcon onClick={() => setSelectedRow(row)} /> */}
+                                                                        <LongMenu  rowData={row}/>
                                                                     </TableCell>
                                                                     : <TableCell key={column.id} align={column.align}>
                                                                         {column.format && typeof value === 'number'
