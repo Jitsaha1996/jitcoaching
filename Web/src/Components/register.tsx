@@ -21,6 +21,7 @@ export const Register = () => {
     status: "",
     code:"",
     isArchived:false,
+    isAdmin:false,
     achivment:[]
   });
 
@@ -145,7 +146,7 @@ export const Register = () => {
             <Typography className='pr-3 w-1/2 pt-3 '>
              Admin Code
             </Typography>
-            <TextField id="code" className='pl-3 w-1/2'  placeholder='ONLY FOR ADMINS' variant="standard" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, dob: e.target.value })} />
+            <TextField id="code" className='pl-3 w-1/2'  placeholder='Type Admin Codes' variant="standard" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, isAdmin: e.target.value==="JDS12@12"?true:false })} />
           </Box>
           
           <Box className=" flex justify-center items-center pt-5">
