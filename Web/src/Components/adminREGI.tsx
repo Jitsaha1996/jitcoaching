@@ -23,12 +23,12 @@ export const Register = () => {
     achivment:[]
   });
 
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(true);
   const [error, setError] = useState(" ");
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
     localStorage.removeItem("User");
-    navigate('/adminREGI');
+    navigate('/register');
   };
   const handleSubmit = (e: any) => {
     e.preventDefault();
