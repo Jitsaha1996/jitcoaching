@@ -10,7 +10,7 @@ import UserContext from '../Auth/userContext';
 export const Register = () => {
   const { login } = useContext<any>(UserContext);
   const navigate = useNavigate();
-  const [auth, setAuth] = React.useState(false);
+ 
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -19,17 +19,14 @@ export const Register = () => {
     dob: "",
     pic: "",
     status: "",
+    code:"",
     isArchived:false,
     achivment:[]
   });
 
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState(" ");
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-    localStorage.removeItem("User");
-    navigate('/adminREGI');
-  };
+  
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (e.target.checkValidity()) {
@@ -82,22 +79,7 @@ export const Register = () => {
     <>
       <CssBaseline />
       <Container maxWidth="sm">
-      <Box className="flex justify-start items-start pt-2 w-full">
-        
-        <FormGroup>
-          
-          <FormControlLabel
-            control={
-              <Switch
-                checked={auth}
-              onChange={handleChange}
-                aria-label="isAdmin switch"
-              />
-            }
-            label={auth ? 'Admin Registration' : 'Student Registration'}
-          />
-        </FormGroup>
-      </Box>
+      
 
         <Box className="flex flex-col pt-3" sx={{ bgcolor: '#cfe8fc', height: '100vh' }} component="form" onSubmit={handleSubmit} noValidate>
           {/* <Box>
@@ -159,6 +141,13 @@ export const Register = () => {
             </Typography>
             <TextField id="dob" className='pl-3 w-1/2' variant="standard" required type='date' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, dob: e.target.value })} />
           </Box>
+          <Box className="flex w-full flex-col justify-center items-center ">
+            <Typography className='pr-3 w-1/2 pt-3 '>
+             Admin Code
+            </Typography>
+            <TextField id="code" className='pl-3 w-1/2'  placeholder='ONLY FOR ADMINS' variant="standard" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, dob: e.target.value })} />
+          </Box>
+          
           <Box className=" flex justify-center items-center pt-5">
             <Button variant="outlined" sx={{ marginRight: "20px" }} color="primary" type="submit" >
               Cancel
