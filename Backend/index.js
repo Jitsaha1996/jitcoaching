@@ -1,7 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+var bodyParser = require('body-parser');
 const app = express();
 app.use(cors());
+
+app.use(bodyParser.urlencoded({
+    limit: '5mb',
+    parameterLimit: 100000,
+    extended: false 
+}));
+
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
 
 const notes=require('./data/nots');
 const dotenv=require('dotenv');
