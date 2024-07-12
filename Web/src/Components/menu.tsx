@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Box } from '@mui/material';
+import { Box, Chip, Stack } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import EditDeatils from './editDetails';
 import { useState } from 'react';
@@ -32,8 +32,8 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
-        console.log(rowData);
+    const handleCloseArchived = () => {
+       
         setAnchorEl(null);
     };
     const handleCloseForEdit = () => {
@@ -46,11 +46,14 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
         navigate('/profile')
         setAnchorEl(null);
     };
-
+    
+       
+      
     return (
         <>
         {isEditDetails?<EditDeatils setOpen={setOpenEdit} open={openEdit} rowData={rowData}/>:null}
           <Box>
+          
             <IconButton
                 aria-label="more"
                 id="long-button"
@@ -68,7 +71,7 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
                 }}
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClick={handleCloseArchived}
                 PaperProps={{
                     style: {
                         maxHeight: ITEM_HEIGHT * 4.5,
@@ -78,8 +81,9 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
             >
                 <MenuItem onClick={handleCloseForEdit}>Edit</MenuItem>
                 <MenuItem onClick={handleCloseForView}>View</MenuItem>
-                <MenuItem onClick={handleClose}>Archived</MenuItem>
+                <MenuItem onClick={handleCloseArchived}>Archived</MenuItem>
             </Menu>
+           
         </Box></>
       
     );
