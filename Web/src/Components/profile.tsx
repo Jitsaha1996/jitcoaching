@@ -73,24 +73,24 @@ export const MyProfile = () => {
                 <table className= 'flex flex-col justify-start place-content-start  mr-5 border  border-black  w-50 h-50 '>
                   <thead>
                   <h1 className= ' flex font-extrabold ml-5'> Personal Details-- </h1>
-                  <div className="divide-y-2 divide-slate-900 bg-orange-200 shadow-inner  ">
-                    <div className="py-1 text-2xl ">Name= {myProfile?.name} </div>
-                    <div className="py-1 text-2xl">Email id= {myProfile?.email} </div>
-                    <div className="py-1 text-2xl">Phone no.= {myProfile?.phone} </div>
-                    <div className="py-1 text-2xl">D.O.B.= {myProfile?.dob}  </div>
-                  </div>
+                  <Box className="divide-y-2 divide-slate-900 bg-orange-200 shadow-inner  ">
+                    <Box className="py-1 text-2xl ">Name= {myProfile?.name} </Box>
+                    <Box className="py-1 text-2xl">Email id= {myProfile?.email} </Box>
+                    <Box className="py-1 text-2xl">Phone no.= {myProfile?.phone} </Box>
+                    <Box className="py-1 text-2xl">D.O.B.= {myProfile?.dob}  </Box>
+                  </Box>
                   </thead>
                   </table> 
 
                   <table className= 'flex flex-col justify-end place-content-center  mr-5 border  border-black  w-72 h-50 '>
                   <thead>
                   <h1 className= ' flex font-extrabold ml-5'>Class  Details-- </h1>
-                  <div className="divide-y-2 divide-slate-900 bg-orange-200 shadow-inner  ">
-                    <div className="py-1 text-2xl ">Class=  </div>
-                    <div className="py-1 text-2xl">Date of entry=  </div>
-                    <div className="py-1 text-2xl">Performance(grade)= </div>
+                  <Box className="divide-y-2 divide-slate-900 bg-orange-200 shadow-inner  ">
+                    <Box className="py-1 text-2xl ">Class=  </Box>
+                    <Box className="py-1 text-2xl">Date of entry=  </Box>
+                    <Box className="py-1 text-2xl">Performance(grade)= </Box>
                    
-                  </div>
+                  </Box>
                   </thead>
                   </table> 
 
