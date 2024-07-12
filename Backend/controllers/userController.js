@@ -2,7 +2,7 @@ const User = require('../models/usersModel');
 const asynHandler = require('express-async-handler');
 const jwtToken = require('../utils/generateTokes');
 
-
+// app.use(express.bodyParser({limit: '50mb'}));
 const registerUsers = asynHandler(async (req, res) => {
   const { name, email, password, pic, dob, phone, isArchived, achievments } = req.body;
   const userExist = await User.findOne({ email })
@@ -10,9 +10,12 @@ const registerUsers = asynHandler(async (req, res) => {
     res.status(400);
     throw new Error("User Already Exist");
   }
+  
+  const myBuffer = Buffer.from(pic, 'base64');
   const user = await User.create({
     name, email, password, pic, dob, phone, isArchived, achievments
   })
+  
   if (user) {
     res.status(201).json({
       _id: user._id,
