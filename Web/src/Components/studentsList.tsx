@@ -11,7 +11,7 @@ import studentList1 from '../Asets/contsant';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from 'react';
-import { alpha, AppBar, Box, IconButton, InputBase, styled, TextField, Toolbar, Typography } from '@mui/material';
+import { alpha, AppBar, Box, Chip, IconButton, InputBase, Stack, styled, TextField, Toolbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { LongMenu } from './menu';
@@ -121,15 +121,25 @@ export default function StudentsList() {
             <Box className="flex flex-col py-5">
                 <Box sx={{ flexGrow: 1 }} >
 
-
-                    <TextField
+                     <Box className ="flex flex-row  w-2/3">
+                     <TextField
                         variant='standard'
                         placeholder='search...'
                         type='search'
                         onChange={(e) => requestSearch(e.target.value)}
                         className='w-full'
                     />
+                     </Box>
+                   <Box className ="flex flex-row w-1/3">
+                   <Stack direction="row" spacing={1}>
+            <Chip
+             label="All" 
+           />
 
+            <Chip label="Archived" variant="outlined" />
+          </Stack>
+                   </Box>
+               
                 </Box>
                 <Box className="py-5 bg-cyan-500 hover:bg-white">
 
