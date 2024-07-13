@@ -32,28 +32,50 @@ export default function EditDeatils(props: any) {
         isAdmin: false,
         achivment: []
     });
-    const { setOpen, open, rowData
+    const { setOpen, open, rowData,typeOfAction
     } = props;
     const handleSubmit = () => {
-        // e.preventDefault();
-        const payLoad = {
-            name: data?.name,
-            email: rowData?.email,
-            password: rowData?.email,
-            phone: data.phone,
-            dob: rowData?.dob,
-            pic: data.pic ? data.pic : rowData?.pic,
-            isArchived: rowData?.isArchived,
-            isAdmin: rowData?.isAdmin,
-            achivment: totalAchivementData
-
-        }
-       
+        if(typeOfAction==="Edit"){
+            const payLoad = {
+                name: data?.name,
+                email: rowData?.email,
+                password: rowData?.email,
+                phone: data.phone,
+                dob: rowData?.dob,
+                pic: data.pic ? data.pic : rowData?.pic,
+                isArchived: rowData?.isArchived,
+                isAdmin: rowData?.isAdmin,
+                achivment: totalAchivementData
+    
+            }
+           
+                axios.put('http://localhost:5000/api/users/edit', payLoad
+    
+                ).then(function (response: any) {
+                    console.log("response", response,"payload");
+                    // setOpen(false);
+                    // setData({ ...data, status: "Sucess" });
+                    // login(response.data);
+                    // navigate('/profile')
+    
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                        // setOpen(false);
+                        // setData({ ...data, status: "Error" });
+                        // setIsError(true);
+                        // setError(error?.message);
+    
+                    });
+        }else if (typeOfAction==="Archived"){
+            const payLoad={
+                ...rowData,isArchived:!rowData.isArchived
+            }
             axios.put('http://localhost:5000/api/users/edit', payLoad
-
+    
             ).then(function (response: any) {
                 console.log("response", response,"payload");
-                // setOpen(false);
+                setOpen(false);
                 // setData({ ...data, status: "Sucess" });
                 // login(response.data);
                 // navigate('/profile')
@@ -67,6 +89,9 @@ export default function EditDeatils(props: any) {
                     // setError(error?.message);
 
                 });
+        }
+        // e.preventDefault();
+        
 
         
     }
@@ -104,7 +129,9 @@ export default function EditDeatils(props: any) {
                
             >
                     <Box className="flex flex-col pt-3" sx={{ bgcolor: '#cfe8fc', height: 'auto', width: "auto" }} >
-                <DialogTitle>Student Details</DialogTitle>
+                        {typeOfAction==="Edit"?
+                        <>
+                        <DialogTitle>Student Details</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
                         <Box className='flex justify-center items-center pt-2 '>
@@ -145,16 +172,30 @@ export default function EditDeatils(props: any) {
                             </Box>
 
                         </Box>
-
-
-
-
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button  onClick={()=>handleSubmit()}>Submit</Button>
                 </DialogActions>
+                        </>:null}
+                        {typeOfAction==="Archived"?
+                        <>
+                        <DialogTitle>Confirmation</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <Box className='flex justify-center items-center pt-2 '>
+                            Are you Sure You want to Archived {rowData?.name}!!
+                        </Box>
+
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button   variant='contained' onClick={()=>handleSubmit()}>Confirm</Button>
+                </DialogActions>
+                        </>:null}
+
+               
                     </Box>
             </Dialog> : null}
 
