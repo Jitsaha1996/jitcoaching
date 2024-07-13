@@ -64,7 +64,7 @@ export const MyProfile = () => {
                 <Box className= ' flex flex-row h-1/4 w-1/3' >
                 <img src={myProfile?.pic} className="flex place-items-start rounded-full w-14" alt='test'/>
                 <text className=" flex justify-start align-top font-bold items-start text-3xl flex-nowrap w-40">
-                {myProfile.name}
+                {myProfile?.name}
               </text>
                 </Box>
 
