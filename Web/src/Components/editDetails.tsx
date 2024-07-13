@@ -6,125 +6,197 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Box, Container, CssBaseline, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { Achievments } from './addAchievments';
+import { useState } from 'react';
+import axios from 'axios';
 
 export default function EditDeatils(props: any) {
-    const { setOpen, open, rowData
+    const [totalAchivementData, setTotalAchivementData] = useState<any[]>([
+        {
+            ClassType: "",
+            totalMarks: "",
+            marks: ""
+        }
+    ]);
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        phone: "",
+        dob: "",
+        pic: "",
+        status: "",
+        code: "",
+        isArchived: false,
+        isAdmin: false,
+        achivment: []
+    });
+    const { setOpen, open, rowData,typeOfAction
     } = props;
+    const handleSubmit = () => {
+        if(typeOfAction==="Edit"){
+            const payLoad = {
+                name: data?.name,
+                email: rowData?.email,
+                password: rowData?.email,
+                phone: data.phone,
+                dob: rowData?.dob,
+                pic: data.pic ? data.pic : rowData?.pic,
+                isArchived: rowData?.isArchived,
+                isAdmin: rowData?.isAdmin,
+                achivment: totalAchivementData
+    
+            }
+           
+                axios.put('http://localhost:5000/api/users/edit', payLoad
+    
+                ).then(function (response: any) {
+                    console.log("response", response,"payload");
+                    // setOpen(false);
+                    // setData({ ...data, status: "Sucess" });
+                    // login(response.data);
+                    // navigate('/profile')
+    
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                        // setOpen(false);
+                        // setData({ ...data, status: "Error" });
+                        // setIsError(true);
+                        // setError(error?.message);
+    
+                    });
+        }else if (typeOfAction==="Archived"){
+            const payLoad={
+                ...rowData,isArchived:!rowData.isArchived
+            }
+            axios.put('http://localhost:5000/api/users/edit', payLoad
+    
+            ).then(function (response: any) {
+                console.log("response", response,"payload");
+                setOpen(false);
+                // setData({ ...data, status: "Sucess" });
+                // login(response.data);
+                // navigate('/profile')
+
+            })
+                .catch(function (error) {
+                    console.log(error);
+                    // setOpen(false);
+                    // setData({ ...data, status: "Error" });
+                    // setIsError(true);
+                    // setError(error?.message);
+
+                });
+        }
+        // e.preventDefault();
+        
+
+        
+    }
 
 
     const handleClose = () => {
         setOpen(false);
     };
+    const setFileBase64 = (files: any) => {
+        console.log("Deatils", files);
+        let idCardBase64 = '';
+        getBase64(files, (result: any) => {
+            idCardBase64 = result;
+            console.log("Files", idCardBase64);
+            setData({ ...data, pic: idCardBase64 });
+
+        });
+    }
+    const getBase64 = (file: any, cb: any) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            cb(reader.result)
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
 
     return (
         <React.Fragment>
             {open ? <Dialog
                 open={open}
                 onClose={handleClose}
-                PaperProps={{
-                    component: 'form',
-                    onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                        event.preventDefault();
-                        const formData = new FormData(event.currentTarget);
-                        const formJson = Object.fromEntries((formData as any).entries());
-                        const email = formJson.email;
-                        console.log(email);
-                        handleClose();
-                    },
-                }}
+               
             >
-                <DialogTitle>Student Details</DialogTitle>
+                    <Box className="flex flex-col pt-3" sx={{ bgcolor: '#cfe8fc', height: 'auto', width: "auto" }} >
+                        {typeOfAction==="Edit"?
+                        <>
+                        <DialogTitle>Student Details</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        Edit Student Deatils
+                        <Box className='flex justify-center items-center pt-2 '>
+                            Edit Student Deatils
+                        </Box>
+
                     </DialogContentText>
 
 
-                    <Box className="flex flex-col pt-3" sx={{ bgcolor: '#cfe8fc', height: 'auto', width:"auto"}} component="form" noValidate>
-                        {/* <Box>
-            {isError ? <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
-              {error}
-            </Alert> : null}
 
-
-            <Typography className='flex text-4xl font-extrabold dark:text-white justify-center items-center pt-2 '>
-              Register
-            </Typography>
-          </Box> */}
-                        {/* <Box>
-                                {data?.status === "Error" ? <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
-                                    {error}
-                                </Alert> : null}
-                                {data?.status === "Sucess" ? <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                                    Register Sucess!!
-                                </Alert> : null}
-
-
-                                <Typography className='flex text-4xl font-extrabold dark:text-white justify-center items-center pt-2 '>
-                                    Register
-                                </Typography>
-                            </Box> */}
-                        <Box className="flex w-full flex-col justify-center items-center ">
-                            <Box className="flex">
-                                <Typography className=' '>
+                        <Box className="flex w-full flex-col  ">
+                            <Box className="flex w-full my-3">
+                                <Typography className=' w-1/2 flex justify-center items-center'>
                                     Name
                                 </Typography>
-                                <TextField id="name" value={rowData?.name} className='pt-20' variant="filled" required />
+                                <TextField id="name" className=' w-1/3 pt-20' defaultValue={rowData?.name} variant="filled" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} required />
+                            </Box>
+                            <Box className="flex  w-full  my-3">
+                                <Typography className=' w-1/2 flex justify-center items-center '>
+                                    Email
+                                </Typography>
+                                <TextField id="email" defaultValue={rowData?.email} className=' w-1/3 pt-20' variant="filled" disabled />
+                            </Box>
+                            <Box className="flex w-full  my-3">
+                                <Typography className='w-1/2 flex justify-center items-center '>
+                                    Phone
+                                </Typography>
+                                <TextField id="phone" defaultValue={rowData?.phone} className='pt-20 w-1/3' variant="filled" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, name: e.target.value })} required />
+                            </Box>
+                            <Box className="flex w-full  my-3">
+                                <Typography className='w-1/2  flex justify-center items-center'>
+                                    Photo
+                                </Typography>
+                                <TextField id="phone" className=' w-1/3 pt-20' variant="standard" required type='file' onChange={(e: any) => setFileBase64(e.target.files[0])} />
+                            </Box>
+                            <Box className="my-2  ">
+                                <Achievments achievments={rowData?.achievments} totalAchivementData={totalAchivementData} setTotalAchivementData={setTotalAchivementData} />
                             </Box>
 
                         </Box>
-                        {/* <Box className="flex w-full flex-col justify-center items-center " >
-                                <Typography className='pr-3 w-1/2 pt-3 '>
-                                    Email
-                                </Typography>
-                                <TextField id="email" className='pl-3 w-1/2' variant="standard" required type='email' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, email: e.target.value })} />
-                            </Box>
-                            <Box className="flex w-full flex-col justify-center items-center ">
-                                <Typography className='pr-3 w-1/2 pt-3 type={showPassword?"text":"password"} '>
-                                    Password
-                                </Typography>
-                                <TextField id="password" className='pl-3 w-1/2' variant="standard" required type='password' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, password: e.target.value })} />
-                            </Box>
-                            <Box className="flex w-full flex-col justify-center items-center ">
-                                <Typography className='pr-3 w-1/2 pt-3 '>
-                                    Phone
-                                </Typography>
-                                <TextField id="phone" className='pl-3 w-1/2' variant="standard" required type='number' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, phone: e.target.value })} />
-                            </Box>
-                            <Box className="flex w-full flex-col justify-center items-center ">
-                                <Typography className='pr-3 w-1/2 pt-3 '>
-                                    File
-                                </Typography>
-                                <TextField id="phone" className='pl-3 w-1/2' variant="standard" required type='file' onChange={(e: any) => setFileBase64(e.target.files[0])} />
-                            </Box>
-                            <Box className="flex w-full flex-col justify-center items-center ">
-                                <Typography className='pr-3 w-1/2 pt-3 '>
-                                    D.O.B.
-                                </Typography>
-                                <TextField id="dob" className='pl-3 w-1/2' variant="standard" required type='date' onChange={(e: React.ChangeEvent<HTMLInputElement>) => setData({ ...data, dob: e.target.value })} />
-                            </Box>
-                            <Box className=" flex justify-center items-center pt-5">
-                                <Button variant="outlined" sx={{ marginRight: "20px" }} color="primary" type="submit" >
-                                    Cancel
-                                </Button>
-                                <Button variant="contained" color="primary" type="submit" >
-                                    Submit
-                                </Button>
-
-                            </Box> */}
-
-
-                    </Box>
-
-
-
-
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button type="submit">Submit</Button>
+                    <Button  onClick={()=>handleSubmit()}>Submit</Button>
                 </DialogActions>
+                        </>:null}
+                        {typeOfAction==="Archived"?
+                        <>
+                        <DialogTitle>Confirmation</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <Box className='flex justify-center items-center pt-2 '>
+                            Are you Sure You want to Archived {rowData?.name}!!
+                        </Box>
+
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button   variant='contained' onClick={()=>handleSubmit()}>Confirm</Button>
+                </DialogActions>
+                        </>:null}
+
+               
+                    </Box>
             </Dialog> : null}
 
         </React.Fragment>
