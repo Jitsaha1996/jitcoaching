@@ -11,13 +11,13 @@ import studentList1 from '../Asets/contsant';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from 'react';
-import { alpha, AppBar, Box, Chip, IconButton, InputBase, Stack, styled, TextField, Toolbar, Typography } from '@mui/material';
+import { alpha, AppBar, Box, Chip, FormControlLabel, IconButton, InputBase, Stack, styled, Switch, TextField, Toolbar, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { LongMenu } from './menu';
 
 interface Column {
-    id: 'name' | '_id' | 'phone' | 'email' | 'dob' | 'action';
+    id: 'name' | '_id' | 'phone' | 'email' | 'dob' | 'action' | 'status';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -25,12 +25,12 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: '_id', label: 'ID', minWidth: 170 },
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 170 },
     { id: 'phone', label: 'Phone', minWidth: 170 },
     { id: 'dob', label: 'DOB', minWidth: 170 },
-    { id: 'action', label: 'Action', minWidth: 170 }
+    { id: 'action', label: 'Action', minWidth: 170 },
+    { id: 'status', label: '', minWidth: 170 }
 
 
 
@@ -50,18 +50,20 @@ interface Student {
 export default function StudentsList() {
     const navigate = useNavigate();
     const [page, setPage] = useState(0);
+    const [openEdit, setOpenEdit] = React.useState(false);
+
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [studentList, setStudentList] = React.useState<any[]>([]);
     const [copyList, setCopyList] = useState<any[]>([]);
 
     const setSelectedRow = (row: Student) => {
-        localStorage.setItem("User",JSON.stringify(row));
+        localStorage.setItem("User", JSON.stringify(row));
         navigate('/profile')
         setStudentList(studentList);
     }
     React.useEffect(() => {
         getStudentList();
-    }, [])
+    }, [openEdit])
     const getStudentList = () => {
 
 
@@ -95,7 +97,7 @@ export default function StudentsList() {
 
     const requestSearch = (val: any) => {
         const filterData = studentList.filter((item) => item?.name?.toLowerCase()?.includes(val?.toLowerCase())
-         || item?.email?.toLowerCase()?.includes(val?.toLowerCase()));
+            || item?.email?.toLowerCase()?.includes(val?.toLowerCase()));
         setCopyList(filterData);
 
     }
@@ -116,31 +118,36 @@ export default function StudentsList() {
             },
         },
     }));
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event?.target?.checked?setCopyList(studentList?.filter(item=>item.isArchived)):setCopyList(studentList);
+    
+    
+    
+      };
     return (
         <>
             <Box className="flex flex-col py-5">
-                <Box sx={{ flexGrow: 1 }} >
+                <Box className="flex   w-full">
+                    
 
-                     <Box className ="flex flex-row  w-2/3">
-                     <TextField
-                        variant='standard'
-                        placeholder='search...'
-                        type='search'
-                        onChange={(e) => requestSearch(e.target.value)}
-                        className='w-full'
-                    />
-                     </Box>
-                   <Box className ="flex flex-row w-1/3">
-                   <Stack direction="row" spacing={1}>
-            <Chip
-             label="All" 
-           />
+                        <Box className=" flex w-2/3">
+                            <TextField
+                                variant='standard'
+                                placeholder='search...'
+                                type='search'
+                                onChange={(e) => requestSearch(e.target.value)}
+                                className='w-full'
+                               
+                            />
+                        </Box>
+                        <Box className="flex justify-end w-1/3">
+                        {/* <Switch  /> */}
+                        <FormControlLabel control={<Switch  onChange={handleChange}/>} label="Archived" />
+                        </Box>
 
-            <Chip label="Archived" variant="outlined" />
-          </Stack>
-                   </Box>
-               
+                    
                 </Box>
+
                 <Box className="py-5 bg-cyan-500 hover:bg-white">
 
 
@@ -176,14 +183,27 @@ export default function StudentsList() {
                                                                 {column.id === "action" ?
                                                                     <TableCell key={column.id} align={column.align}>
                                                                         {/* <ArrowRightAltIcon onClick={() => setSelectedRow(row)} /> */}
-                                                                        <LongMenu  rowData={row}/>
+                                                                        <LongMenu rowData={row} openEdit={openEdit} setOpenEdit={setOpenEdit} />
                                                                     </TableCell>
-                                                                    : <TableCell key={column.id} align={column.align}>
-                                                                        {column.format && typeof value === 'number'
-                                                                            ? column.format(value)
-                                                                            : value}
-                                                                    </TableCell>
+                                                                    : null
                                                                 }
+                                                                {
+                                                                    !(column.id === "action" || column.id === "status") ?
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {column.format && typeof value === 'number'
+                                                                                ? column.format(value)
+                                                                                : value}
+
+                                                                        </TableCell> : null
+                                                                }
+                                                                {column.id === "status" ?
+                                                                    <TableCell key={column.id} align={column.align}>
+                                                                        {row.isArchived ? <Chip label="Archived" color="error" /> : null}
+
+                                                                    </TableCell> : null}
+
+
+
 
 
                                                             </>

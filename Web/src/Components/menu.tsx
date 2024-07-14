@@ -23,8 +23,9 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export const LongMenu: React.FC<any> = ({ rowData }) => {
-    const [openEdit, setOpenEdit] = React.useState(false);
+export const LongMenu: React.FC<any> = ({ rowData,openEdit,setOpenEdit }) => {
+    // const [openEdit, setOpenEdit] = React.useState(false);
+    const [typeOfAction,setTypeOfAction]=useState(" ");
     const navigate = useNavigate();
     const [isEditDetails,setIsEditDeatils]=useState(false);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -33,11 +34,16 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
         setAnchorEl(event.currentTarget);
     };
     const handleCloseArchived = () => {
-       
+        setOpenEdit(true);
+        setTypeOfAction("Archived");
+        setIsEditDeatils(true);
+
         setAnchorEl(null);
     };
     const handleCloseForEdit = () => {
         setAnchorEl(null);
+        setTypeOfAction("Edit");
+
         setIsEditDeatils(true);
         setOpenEdit(true);
     };
@@ -51,7 +57,7 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
       
     return (
         <>
-        {isEditDetails?<EditDeatils setOpen={setOpenEdit} open={openEdit} rowData={rowData}/>:null}
+        {isEditDetails?<EditDeatils setOpen={setOpenEdit} open={openEdit} rowData={rowData} typeOfAction={typeOfAction}/>:null}
           <Box>
           
             <IconButton
@@ -81,7 +87,7 @@ export const LongMenu: React.FC<any> = ({ rowData }) => {
             >
                 <MenuItem onClick={handleCloseForEdit}>Edit</MenuItem>
                 <MenuItem onClick={handleCloseForView}>View</MenuItem>
-                <MenuItem onClick={handleCloseArchived}>Archived</MenuItem>
+                <MenuItem onClick={handleCloseArchived}>{rowData?.isArchived?"Extract":"Archived"}</MenuItem>
             </Menu>
            
         </Box></>
